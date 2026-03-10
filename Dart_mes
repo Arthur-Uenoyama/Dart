@@ -1,0 +1,23 @@
+void main() {
+  for (int mes = 1; mes <= 12; mes++) {
+    switch (mes) {
+      case 4:
+        print('$mes - Tiradentes');
+        break;
+      case 5:
+        print('$mes - Dia do Trabalhador');
+        break;
+      case 9:
+        print('$mes - Independência do Brasil');
+        break;
+      case 11:
+        print('$mes - Proclamação da República');
+        break;
+      case 12:
+        print('$mes - Natal');
+        break;
+      default:
+        print('$mes');
+    }
+  }
+}
