@@ -1,0 +1,9 @@
+int idade({required int ano}) {
+  final currentYear = DateTime.now().year;
+  return currentYear - ano;
+}
+void main() {
+  int valor = idade(ano: 1977);
+  print('A idade da pessoa nascida em 1977 é: $valor anos.');
+
+}
