@@ -1,0 +1,19 @@
+void main() {
+  var notas = [8.5, 4.0, 7.5, 9.0, 5.5, 3.0, 10.0, 6.0];
+  const double notaMinimaAprovacao = 6.0;
+
+  var notasAprovadas = notas.where((nota) => nota >= notaMinimaAprovacao);
+
+  if (notasAprovadas.isNotEmpty) {
+    double somaNotasAprovadas = notasAprovadas.reduce((value, element) => value + element);
+
+    double mediaNotasAprovadas = somaNotasAprovadas / notasAprovadas.length;
+
+    print('Lista de notas: $notas');
+    print('Notas dos alunos aprovados (>= $notaMinimaAprovacao): $notasAprovadas');
+    print('Média das notas dos alunos aprovados: ${mediaNotasAprovadas.toStringAsFixed(2)}');
+  } else {
+    print('Lista de notas: $notas');
+    print('Não há alunos aprovados com nota igual ou superior a $notaMinimaAprovacao.');
+  }
+}
