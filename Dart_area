@@ -1,0 +1,21 @@
+import 'dart:math';
+
+double area(double radius) {
+  if (radius < 0) {
+    throw ArgumentError('Radius cannot be negative.');
+  }
+  return pi * pow(radius, 2);
+}
+
+void main() {
+  try {
+    var areaCirculo = area(5.0);
+    print('A área do círculo com raio 5.0 é: ${areaCirculo.toStringAsFixed(2)}');
+    var areaCirculo2 = area(10.0);
+    print('A área do círculo com raio 10.0 é: ${areaCirculo2.toStringAsFixed(2)}');
+  } on ArgumentError catch (e) {
+    print('Erro: ${e.message}');
+  } catch (e) {
+    print('Ocorreu um erro inesperado: $e');
+  }
+}
