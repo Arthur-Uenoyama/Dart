@@ -1,0 +1,27 @@
+import 'dart:core';
+
+double media(List<double> numbers) {
+  if (numbers.isEmpty) {
+    return 0.0;
+  }
+  final double sum = numbers.reduce((a, b) => a + b);
+  return sum / numbers.length;
+}
+
+void main() {
+  var notas = [4.5, 9.2, 7.8];
+  var notaFinal = media(notas);
+
+  print('As notas são: $notas');
+  print('A nota final (média) é: ${notaFinal.toStringAsFixed(2)}');
+
+  var notasVazias = <double>[];
+  var mediaNotasVazias = media(notasVazias);
+  print('\nNotas vazias: $notasVazias');
+  print('A média de notas vazias é: ${mediaNotasVazias.toStringAsFixed(2)}');
+
+  var outrasNotas = [6.0, 7.5, 8.0, 9.5];
+  var mediaOutrasNotas = media(outrasNotas);
+  print('\nOutras notas: $outrasNotas');
+  print('A média dessas outras notas é: ${mediaOutrasNotas.toStringAsFixed(2)}');
+}
