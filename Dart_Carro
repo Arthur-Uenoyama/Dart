@@ -1,0 +1,38 @@
+import 'dart:math' as math;
+
+class Carro {
+  String marca;
+  String modelo;
+  int velocidade;
+
+  Carro({required this.marca, required this.modelo, this.velocidade = 0});
+
+
+  void acelera() =>
+      print('O $marca $modelo acelerou! Nova velocidade: ${velocidade += 5} km/h');
+
+  
+  void freia() =>
+      print('O $marca $modelo freiou! Nova velocidade: ${velocidade = math.max(0, velocidade - 10)} km/h');
+
+  void exibeDetalhes() =>
+      print('Carro com 2 portas. Velocidade: $velocidade km/h');
+}
+
+void main() {
+  print('--- Simulação de Carro ---');
+
+  var meuCarro = Carro(marca: 'Generica', modelo: 'Modelo');
+
+  meuCarro.exibeDetalhes();
+  meuCarro.acelera();
+  meuCarro.acelera();
+  meuCarro.acelera();
+  meuCarro.exibeDetalhes(); 
+  meuCarro.freia();
+  meuCarro.exibeDetalhes(); 
+  meuCarro.freia();
+  meuCarro.exibeDetalhes(); 
+
+  print('\n--- Fim da Simulação ---');
+}
