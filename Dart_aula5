@@ -1,0 +1,93 @@
+//ex1
+
+class Celular {
+  void mostrarStatus() {
+    print('O Samsung S23 está com 80% de carga.');
+  }
+}
+
+void main() {
+  var meuCelular = Celular();
+  meuCelular.mostrarStatus();
+}
+
+
+//ex2
+
+
+class Celular {
+  final String marca;
+  final String modelo;
+  int nivelBateria;
+
+  Celular(this.marca, this.modelo, this.nivelBateria);
+
+  void mostrarStatus() {
+    print('Marca: $marca');
+    print('Modelo: $modelo');
+    print('Nível da Bateria: $nivelBateria%');
+  }
+}
+
+void main() {
+  var meuCelular = Celular(
+    "Motorola",
+    "G34",
+    15,
+  );
+  meuCelular.mostrarStatus();
+}
+//ex3
+
+
+abstract class Animal {
+  String fazerBarulho();
+}
+
+class Gato implements Animal {
+  @override
+  String fazerBarulho() {
+    return 'Miau!';
+  }
+}
+
+void main() {
+  final gato = Gato();
+  print('O gato diz: ${gato.fazerBarulho()}');
+}
+
+//ex4
+
+void main() {
+  var circulo1 = Circulo(centroX: 0.0, centroY: 0.0, raio: 5.0, cor: 'Vermelho');
+  print(circulo1);
+
+  var circulo2 = Circulo(centroX: 10.5, centroY: -3.2, raio: 12.1, cor: 'Azul');
+  print(circulo2);
+
+  var circulo3 = Circulo(centroX: 100.0, centroY: 200.0, raio: 25.5, cor: 'Verde');
+  print(circulo3);
+}
+
+class Circulo {
+  final double centroX;
+  final double centroY;
+  final double raio;
+  final String cor;
+
+  Circulo({
+    required this.centroX,
+    required this.centroY,
+    required this.raio,
+    required this.cor,
+  }) {
+    if (raio < 0) {
+      throw ArgumentError('O raio do círculo não pode ser negativo.');
+    }
+  }
+
+  @override
+  String toString() {
+    return 'Círculo(Centro: ($centroX, $centroY), Raio: $raio, Cor: $cor)';
+  }
+}
