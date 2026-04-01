@@ -1,0 +1,133 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:env_variables/env_variables.dart';
+
+Future<void> main(List<String> arguments) async {
+  String dados = EnvVariables.fromEnvironment('QUERY_STRING');
+
+  if (dados.isNotEmpty) {
+    await sistemaWeb(dados);   
+  } else {
+    await sistemaConsole();    
+  }
+}
+
+Future<void> sistemaConsole() async {
+  print("=== EXECUTANDO EXERCÍCIOS ===\n");
+
+  // Ex 1 e 2
+  try {
+    print("2 / 3 = ${divide(2, 3)}");
+    print("2 / 0 = ${divide(2, 0)}");
+  } catch (e) {
+    print("Erro: $e");
+  }
+
+  print("");
+  // Ex 3
+  await exercicioAsync();
+  print("");
+  // Ex 4
+  await salvarHora();
+  // Ex 5
+  await lerHoras();
+}
+
+
+Future<void> sistemaWeb(String dados) async {
+  print('Content-type: text/html; charset=iso-8859-1\n\n');
+
+  Uri uri = Uri(query: dados);
+  var parametros = uri.queryParameters;
+  var nome = parametros["nome"];
+
+  var file = File('churrasco.txt');
+
+  // Ex 7 
+  if (nome != null && nome.isNotEmpty) {
+    await file.writeAsString(nome + "\n", mode: FileMode.append);
+  }
+
+  // Ex 6 + 8 
+  print('''
+  <html>
+  <head>
+    <title>Churrasco</title>
+  </head>
+  <body>
+
+    <h1>🍖 Lista do Churrasco</h1>
+    <ul>
+  ''');
+
+  if (await file.exists()) {
+    List<String> nomes = await file.readAsLines();
+    for (var n in nomes) {
+      print("<li>$n</li>");
+    }
+  }
+
+  print('''
+    </ul>
+
+    <h2>Adicionar nome:</h2>
+    <form>
+      <input type="text" name="nome" required>
+      <input type="submit" value="Adicionar">
+    </form>
+
+  </body>
+  </html>
+  ''');
+}
+
+// Ex 1 e 2 
+double divide(double x, double y) {
+  if (y == 0) {
+    throw Exception("Divisão por zero não permitida");
+  }
+  return x / y;
+}
+
+// Ex 3 
+const doisSegundos = Duration(seconds: 2);
+
+Future<void> imprimeDemorado(String msg) async {
+  await Future.delayed(doisSegundos);
+  print(msg);
+}
+
+Future<void> exercicioAsync() async {
+  print("hello");
+  await imprimeDemorado("world");
+}
+
+// Ex 4 
+Future<void> salvarHora() async {
+  try {
+    var file = File('horas.txt');
+    String agora = DateTime.now().toString();
+
+    await file.writeAsString(agora + "\n", mode: FileMode.append);
+
+    print("Hora salva!");
+  } catch (e) {
+    print("Erro ao salvar hora: $e");
+  }
+}
+
+// Ex 5 
+Future<void> lerHoras() async {
+  try {
+    var file = File('horas.txt');
+
+    if (await file.exists()) {
+      String conteudo = await file.readAsString();
+      print("Horas salvas:\n$conteudo");
+    } else {
+      print("Arquivo de horas não existe");
+    }
+  } catch (e) {
+    print("Erro ao ler horas: $e");
+  }
+}
