@@ -1,0 +1,88 @@
+import 'dart:io';
+import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf_io.dart' as io;
+import 'package:shelf_router/shelf_router.dart';
+import 'package:sqlite3/sqlite3.dart';
+
+final db = sqlite3.open('usuarios.db');
+
+void main() async {
+  criarTabela();
+
+  final app = Router();
+  app.get('/', (Request request) {
+    return Response.ok('''
+    <html>
+      <body>
+        <h1>Cadastrar Usuário</h1>
+        <form method="POST" action="/salvar">
+          Nome: <input name="nome" /><br>
+          Idade: <input name="idade" type="number"/><br>
+          <button type="submit">Salvar</button>
+        </form>
+        <br>
+        <a href="/usuarios">Ver usuários</a>
+      </body>
+    </html>
+    ''', headers: {'Content-Type': 'text/html'});
+  });
+
+  app.post('/salvar', (Request request) async {
+    final body = await request.readAsString();
+    final data = Uri.splitQueryString(body);
+
+    final nome = data['nome'];
+    final idade = int.parse(data['idade']!);
+
+    db.execute(
+      'INSERT INTO usuarios (nome, idade) VALUES (?, ?)',
+      [nome, idade],
+    );
+
+    return Response.ok('''
+    <html>
+      <body>
+        <h2>Usuário salvo!</h2>
+        <a href="/">Voltar</a>
+      </body>
+    </html>
+    ''', headers: {'Content-Type': 'text/html'});
+  });
+
+  app.get('/usuarios', (Request request) {
+    final result = db.select('SELECT * FROM usuarios');
+
+    final rows = result.map((row) {
+      return '<li>${row['nome']} - ${row['idade']} anos</li>';
+    }).join();
+
+    return Response.ok('''
+    <html>
+      <body>
+        <h1>Usuários cadastrados</h1>
+        <ul>
+          $rows
+        </ul>
+        <a href="/">Voltar</a>
+      </body>
+    </html>
+    ''', headers: {'Content-Type': 'text/html'});
+  });
+
+  final handler =
+      const Pipeline().addMiddleware(logRequests()).addHandler(app);
+
+  final server = await io.serve(handler, 'localhost', 8080);
+
+  print('Servidor rodando em http://localhost:8080');
+}
+
+void criarTabela() {
+  db.execute('''
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nome TEXT,
+      idade INTEGER
+    )
+  ''');
+}
