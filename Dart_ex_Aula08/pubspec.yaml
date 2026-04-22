@@ -1,0 +1,9 @@
+name: projeto_carros
+description: Exercicio Dart SQLite
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  shelf: ^1.4.0
+  sqlite3: ^2.4.0

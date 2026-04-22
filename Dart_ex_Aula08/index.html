@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Customizar Carro</title>
+</head>
+<body>
+
+<h1>Customizar Carro</h1>
+
+<form method="POST" action="http://localhost:8080/salvar">
+    
+    Nome: <input type="text" name="carName"><br><br>
+
+    Cor: <input type="color" name="carColor"><br><br>
+
+    Rodas:
+    <select name="wheelType">
+        <option value="esportiva">Esportiva</option>
+        <option value="offroad">Off-Road</option>
+        <option value="classica">Clássica</option>
+    </select><br><br>
+
+    Potência:
+    <input type="range" name="enginePower" min="1" max="10"><br><br>
+
+    Suspensão:
+    <input type="radio" name="suspension" value="baixa" checked> Baixa
+    <input type="radio" name="suspension" value="alta"> Alta
+    <br><br>
+
+    <input type="submit" value="Salvar">
+</form>
+
+</body>
+</html>
