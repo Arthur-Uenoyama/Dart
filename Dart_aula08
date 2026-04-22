@@ -1,0 +1,52 @@
+import 'package:sqlite3/sqlite3.dart';
+
+void main() {
+  final db = sqlite3.open('carros.db');
+
+  db.execute('''
+    CREATE TABLE IF NOT EXISTS carros (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      cor TEXT,
+      rodas TEXT,
+      potencia INTEGER,
+      suspensao TEXT
+    );
+  ''');
+
+  String cor = "#ff0000";
+  String rodas = "esportiva";
+  int potencia = 8;
+  String suspensao = "baixa";
+
+  final stmt = db.prepare('''
+    INSERT INTO carros (cor, rodas, potencia, suspensao)
+    VALUES (?, ?, ?, ?)
+  ''');
+
+  stmt.execute([cor, rodas, potencia, suspensao]);
+
+  stmt.dispose();
+  db.dispose();
+
+  print("Carro salvo com sucesso!");
+}
+
+
+import 'package:sqlite3/sqlite3.dart';
+
+void main() {
+  final db = sqlite3.open('carros.db');
+
+  final ResultSet result = db.select('SELECT * FROM carros');
+
+  for (final row in result) {
+    print('--- Carro ID: ${row['id']} ---');
+    print('Cor: ${row['cor']}');
+    print('Rodas: ${row['rodas']}');
+    print('Potência: ${row['potencia']}');
+    print('Suspensão: ${row['suspensao']}');
+    print('--------------------------\n');
+  }
+
+  db.dispose();
+}
