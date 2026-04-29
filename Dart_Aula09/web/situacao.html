@@ -1,0 +1,17 @@
+<h2>Consultar Situação</h2>
+<input id="prontuario" placeholder="Prontuário">
+<button onclick="buscar()">Buscar</button>
+<div id="resultado"></div>
+<script>
+function buscar() {
+  fetch('/situacao/' + prontuario.value)
+  .then(r => r.json())
+  .then(d => {
+    resultado.innerHTML = `
+      Nome: ${d.nome}<br>
+      Maior período: ${d.maior_periodo}<br>
+      Conclusão: ${d.porcentagem.toFixed(2)}%
+    `;
+  });
+}
+</script>

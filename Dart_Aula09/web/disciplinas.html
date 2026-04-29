@@ -1,0 +1,19 @@
+<h2>Cadastro Disciplina</h2>
+<input id="codigo" placeholder="Código"><br>
+<input id="nome" placeholder="Nome"><br>
+<input id="periodo" type="number"><br>
+<input id="carga" type="number"><br>
+<button onclick="salvar()">Salvar</button>
+<script>
+function salvar() {
+  fetch('/disciplina', {
+    method: 'POST',
+    body: JSON.stringify({
+      codigo: codigo.value,
+      nome: nome.value,
+      periodo: parseInt(periodo.value),
+      carga: parseInt(carga.value)
+    })
+  });
+}
+</script>

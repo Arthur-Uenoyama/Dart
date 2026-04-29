@@ -1,0 +1,21 @@
+<h2>Situação do Aluno</h2>
+<input id="aluno" placeholder="Prontuário"><br>
+<input id="disciplina" placeholder="Código Disciplina"><br>
+<select id="situacao">
+<option>Aprovado</option>
+<option>Reprovado</option>
+<option>Cursando</option>
+</select>
+<button onclick="salvar()">Salvar</button>
+<script>
+function salvar() {
+  fetch('/curso', {
+    method: 'POST',
+    body: JSON.stringify({
+      aluno_prontuario: aluno.value,
+      disciplina_codigo: disciplina.value,
+      situacao: situacao.value
+    })
+  });
+}
+</script>

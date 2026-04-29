@@ -1,0 +1,11 @@
+<h2>Alunos</h2>
+<ul id="lista"></ul>
+<script>
+fetch('/alunos')
+.then(r => r.json())
+.then(data => {
+  data.forEach(a => {
+    lista.innerHTML += `<li>${a.nome}</li>`;
+  });
+});
+</script>

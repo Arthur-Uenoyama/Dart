@@ -1,0 +1,11 @@
+<h2>Disciplinas</h2>
+<ul id="lista"></ul>
+<script>
+fetch('/disciplinas')
+.then(r => r.json())
+.then(data => {
+  data.forEach(d => {
+    lista.innerHTML += `<li>${d.nome} - Período ${d.periodo}</li>`;
+  });
+});
+</script>
