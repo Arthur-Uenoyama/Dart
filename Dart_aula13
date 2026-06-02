@@ -1,0 +1,231 @@
+//ex1
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var linguagens = [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Dart',
+      'Python'
+    ];
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              Text(linguagens[0]),
+              Text(linguagens[1]),
+              Text(linguagens[2]),
+              Text(linguagens[3]),
+              Text(linguagens[4]),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//ex2
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  MainApp({super.key});
+
+  var linguagens = ['HTML', 'CSS', 'JavaScript'];
+
+  Widget filhos() {
+    if (linguagens.length > 3) {
+      return Column(
+        children: [
+          Text(linguagens[0]),
+          Text(linguagens[1]),
+          Text(linguagens[2]),
+          Text(linguagens[3]),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Text(linguagens[0]),
+          Text(linguagens[1]),
+          Text(linguagens[2]),
+        ],
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: filhos(),
+        ),
+      ),
+    );
+  }
+}
+
+//ex3
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  MainApp({super.key});
+
+  var linguagens = ['HTML', 'CSS', 'JavaScript'];
+
+  Widget filhos() {
+    List<Widget> itens = [];
+
+    for (var linguagem in linguagens) {
+      itens.add(Text(linguagem));
+    }
+
+    return Column(
+      children: itens,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: filhos(),
+        ),
+      ),
+    );
+  }
+}
+
+//ex4
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  MainApp({super.key});
+
+  var linguagens = ['HTML', 'CSS', 'JavaScript', 'Dart'];
+
+  Widget filhos() {
+    List<Widget> itens = [];
+
+    for (var linguagem in linguagens) {
+      if (linguagem == 'CSS') {
+        break;
+      }
+
+      itens.add(Text(linguagem));
+    }
+
+    return Column(
+      children: itens,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: filhos(),
+        ),
+      ),
+    );
+  }
+}
+
+
+//ex5
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  MainApp({super.key});
+
+  var linguagens = ['HTML', 'CSS', 'JavaScript', 'Dart'];
+
+  Widget filhos() {
+    List<Widget> itens = [];
+
+    for (var linguagem in linguagens) {
+      if (linguagem == 'CSS') {
+        continue;
+      }
+
+      itens.add(Text(linguagem));
+    }
+
+    return Column(
+      children: itens,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: filhos(),
+        ),
+      ),
+    );
+  }
+}
+
+
+//ex6
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var linguagens = ['HTML', 'CSS', 'JavaScript'];
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            children: linguagens
+                .map((elemento) => Text(elemento))
+                .toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
