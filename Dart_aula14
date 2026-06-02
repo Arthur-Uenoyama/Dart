@@ -1,0 +1,159 @@
+//ex1
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  double media(List<double> notas) {
+    if (notas.isEmpty) return 0.0;
+
+    double soma = 0.0;
+
+    for (var nota in notas) {
+      soma += nota;
+    }
+
+    return soma / notas.length;
+  }
+
+  double maiorNota(List<double> notas) {
+    if (notas.isEmpty) return 0.0;
+
+    double maior = notas[0];
+
+    for (var nota in notas) {
+      if (nota > maior) {
+        maior = nota;
+      }
+    }
+
+    return maior;
+  }
+
+  double menorNota(List<double> notas) {
+    if (notas.isEmpty) return 0.0;
+
+    double menor = notas[0];
+
+    for (var nota in notas) {
+      if (nota < menor) {
+        menor = nota;
+      }
+    }
+
+    return menor;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var notas = [5.0, 6.5, 8.2];
+
+    var msg =
+        "Média: ${media(notas).toStringAsFixed(2)}\n"
+        "Maior nota: ${maiorNota(notas)}\n"
+        "Menor nota: ${menorNota(notas)}";
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Text(msg),
+        ),
+      ),
+    );
+  }
+}
+
+//ex2
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  final TextEditingController _controller = TextEditingController();
+  final List<double> _notas = [];
+
+  double calcularMedia() {
+    if (_notas.isEmpty) return 0.0;
+
+    double soma = _notas.reduce((a, b) => a + b);
+    return soma / _notas.length;
+  }
+
+  double maiorNota() {
+    if (_notas.isEmpty) return 0.0;
+
+    return _notas.reduce((a, b) => a > b ? a : b);
+  }
+
+  double menorNota() {
+    if (_notas.isEmpty) return 0.0;
+
+    return _notas.reduce((a, b) => a < b ? a : b);
+  }
+
+  void adicionarNota() {
+    double? nota = double.tryParse(_controller.text);
+
+    if (nota != null) {
+      setState(() {
+        _notas.add(nota);
+      });
+
+      _controller.clear();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Notas")),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TextField(
+                controller: _controller,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: "Digite uma nota",
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: adicionarNota,
+                child: const Text("Adicionar"),
+              ),
+              const SizedBox(height: 20),
+              Text("Notas: ${_notas.join(', ')}"),
+              Text(
+                "Média: ${calcularMedia().toStringAsFixed(2)}",
+              ),
+              Text(
+                "Maior nota: ${maiorNota().toStringAsFixed(2)}",
+              ),
+              Text(
+                "Menor nota: ${menorNota().toStringAsFixed(2)}",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
