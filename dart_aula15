@@ -1,0 +1,83 @@
+//ex1
+
+import 'dart:io';
+
+void main() {
+  List<String> times = [];
+
+  print("Digite o nome de 4 times:");
+
+  for (int i = 1; i <= 4; i++) {
+    stdout.write("Time $i: ");
+    times.add(stdin.readLineSync()!);
+  }
+
+  print("\nJogos possíveis:");
+
+  for (int i = 0; i < times.length; i++) {
+    for (int j = i + 1; j < times.length; j++) {
+      print("${times[i]} x ${times[j]}");
+    }
+  }
+}
+
+//ex2 
+
+import 'dart:io';
+
+void main() {
+  List<String> times = [];
+
+  print("Digite o nome de 4 times:");
+
+  for (int i = 1; i <= 4; i++) {
+    stdout.write("Time $i: ");
+    times.add(stdin.readLineSync()!);
+  }
+
+  Map<String, int> pontos = {};
+
+  for (var time in times) {
+    pontos[time] = 0;
+  }
+
+  print("\nDigite os resultados dos jogos:");
+
+  for (int i = 0; i < times.length; i++) {
+    for (int j = i + 1; j < times.length; j++) {
+      String timeA = times[i];
+      String timeB = times[j];
+
+      print("\n$timeA x $timeB");
+
+      stdout.write("Gols de $timeA: ");
+      int golsA = int.parse(stdin.readLineSync()!);
+
+      stdout.write("Gols de $timeB: ");
+      int golsB = int.parse(stdin.readLineSync()!);
+
+      if (golsA > golsB) {
+        pontos[timeA] = pontos[timeA]! + 3;
+      } else if (golsB > golsA) {
+        pontos[timeB] = pontos[timeB]! + 3;
+      } else {
+        pontos[timeA] = pontos[timeA]! + 1;
+        pontos[timeB] = pontos[timeB]! + 1;
+      }
+    }
+  }
+
+  print("\n=== Classificação ===");
+
+  var classificacao = pontos.entries.toList();
+
+  classificacao.sort((a, b) => b.value.compareTo(a.value));
+
+  for (var item in classificacao) {
+    print("${item.key}: ${item.value} pontos");
+  }
+
+  print("\n=== Classificados ===");
+  print("1º ${classificacao[0].key} (${classificacao[0].value} pontos)");
+  print("2º ${classificacao[1].key} (${classificacao[1].value} pontos)");
+}
